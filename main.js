@@ -1,6 +1,12 @@
 
 document.getElementById("search-button").addEventListener("click", fetchSpell);
+document.addEventListener("keypress", checkKey);
 let newSpell;
+
+function checkKey(event) {
+  if (event.key === "Enter")
+  fetchSpell();
+}
 
 function fetchSpell() {
   let searchTerm = document.querySelector("input").value.toLowerCase().split(" ").join("-");
@@ -10,8 +16,9 @@ function fetchSpell() {
   .then (data => {
     console.log(data);
     newSpell = SpellMaker(data);
+    console.log(newSpell);
   })
-  .catch(err => console.log(`Error: ${err}`))
+  .catch(err => alert("Sorry, we couldn't find a spell by that name."))
   .finally(document.querySelector("input").value = "");
 }
 
